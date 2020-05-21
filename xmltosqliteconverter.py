@@ -1,3 +1,4 @@
+"""
 import xml.dom.minidom
 doc = xml.dom.minidom.parse("Compendiums\\Spells Compendium 1.3.0.xml")
 def main():
@@ -8,6 +9,7 @@ def main():
         print("nickname:%s, salary:%s" %
               (getNodeText(name), getNodeText(level)))
 """
+"""
     name = doc.getElementsByTagName("spell")[0]
     print(name.firstChild.data)
 
@@ -17,6 +19,7 @@ def main():
         level = spell.getElementsByTagName("level")[0]
         print("name: %s, level: %s" % (name.firstChild.data, level.firstChild.data)) 
 """
+"""
 def getNodeText(node):
     nodelist = node.childNodes
     result = []
@@ -25,6 +28,14 @@ def getNodeText(node):
             result.append(node.data)
     return ''.join(result)
 
+"""
+import xml.etree.ElementTree as ET
+
+def main():
+    tree = ET.parse('Compendiums\\Spells Compendium 1.3.0.xml')
+    root = tree.getroot()    
+    for elem in root.findall('.//compendium'):
+        print(elem.text)
 
 if __name__ == "__main__":
     main()
