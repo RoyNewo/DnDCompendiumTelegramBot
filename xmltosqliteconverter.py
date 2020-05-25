@@ -12,7 +12,6 @@ def main():
 """
     name = doc.getElementsByTagName("spell")[0]
     print(name.firstChild.data)
-
     spells = doc.getElementsByTagName("spell")
     for spell in spells:        
         name = spell.getElementsByTagName("roll")[0]
@@ -27,16 +26,19 @@ def getNodeText(node):
         if node.nodeType == node.TEXT_NODE:
             result.append(node.data)
     return ''.join(result)
-
 """
 import xml.etree.ElementTree as ET
 
 def main():
     tree = ET.parse('Compendiums\\Spells Compendium 1.3.0.xml')
-    root = tree.getroot()    
-    for elem in root.findall('.//compendium'):
-        print(elem.text)
-
+    root = tree.getroot()
+    '''        
+    print(root[1][0].tag, root[1][0].text)
+    print(len(root))
+    print(len(root[0]))
+    '''
+    for x in root[0].findall("./text"):
+        print(x.text)
 if __name__ == "__main__":
     main()
 
