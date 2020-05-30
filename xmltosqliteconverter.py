@@ -32,13 +32,22 @@ import xml.etree.ElementTree as ET
 def main():
     tree = ET.parse('Compendiums\\Spells Compendium 1.3.0.xml')
     root = tree.getroot()
-    '''        
+    '''
     print(root[1][0].tag, root[1][0].text)
     print(len(root))
     print(len(root[0]))
     '''
+    cadena = ""
+    
     for x in root[0].findall("./text"):
-        print(x.text)
+        if x.text != None:
+            cadena = cadena + x.text
+        else:
+            cadena = cadena + "\\n "
+
+#        print(x.text)
+    print(cadena)
+    
 if __name__ == "__main__":
     main()
 
