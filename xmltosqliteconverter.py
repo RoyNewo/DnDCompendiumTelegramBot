@@ -69,6 +69,21 @@ def ritaulHechizo(lista):
         ritual.change_str(False)
     else:
         ritual.change_str(True)
+def rangoHechizo(lista):
+    Range.change_str(lista)
+def componentesHechizo(lista):
+    components.change_str(lista)
+def duracionHechizo(lista):
+    duration.change_str(lista)
+def descripcionHechizo(lista):
+    if lista != None:
+        text.change_str(text + lista)
+    else:
+        text.change_str(text + "\\n ")
+def dadoHechizo(lista):
+    print(text)
+
+
 
 
 def main():
