@@ -1,0 +1,16 @@
+Name,String,requiered
+Level,int,requiered
+school,string,requiered
+ritual,bool,optional
+time,string,requiered
+range,string,requiered
+components,string,requiered
+duration,string,requiered
+classes,string,requiered
+text,string,requiered
+attackroll,string,optional
+damage1,string,optional
+damage2,string,optional
+damage3,string,optional
+damage4,string,optional
+slotdamage,string,optional

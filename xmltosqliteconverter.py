@@ -35,9 +35,17 @@ class my_str:
     def change_str(self, new_str):
         self.str_as_list = [new_str]
 
+    def string(self):
+        return str(self.str_as_list[0])
+    def my_int(self):
+        return int(self.str_as_list[0])
+    def my_bool(self):
+        return bool(self.str_as_list[0])
     def __str__(self):
         return self.str_as_list[0]
 
+
+'''
 switcher = {'name': nombreHechizo, 'level': nivelHechizo, 'school': escuelaHechizo, 'ritual': ritaulHechizo, 'time': tiempoHechizo, 'range': rangoHechizo, 'components': componentesHechizo, 'duration': duracionHechizo, 'text': descripcionHechizo, 'roll': dadoHechizo}
 Name = my_str("")
 Level = my_str(0)
@@ -55,36 +63,74 @@ damage2 = my_str("")
 damage3 = my_str("")
 damage4 = my_str("")
 slotdamage = my_str("")
+roll = my_str("")
+l = my_str(0)
+'''
 
-def nombreHechizo(lista):
+def nombreHechizo(lista, contador):
     Name.change_str(lista)
-def nivelHechizo(lista):
+def nivelHechizo(lista, contador):
     Level.change_str(int(lista))
-def escuelaHechizo(lista):
+def escuelaHechizo(lista, contador):
     school.change_str(lista)
-def tiempoHechizo(lista):
+def tiempoHechizo(lista, contador):
     time.change_str(lista)
-def ritaulHechizo(lista):
+def ritaulHechizo(lista, contador):
     if lista == "False":
         ritual.change_str(False)
     else:
         ritual.change_str(True)
-def rangoHechizo(lista):
+def rangoHechizo(lista, contador):
     Range.change_str(lista)
-def componentesHechizo(lista):
+def componentesHechizo(lista, contador):
     components.change_str(lista)
-def duracionHechizo(lista):
+def duracionHechizo(lista, contador):
     duration.change_str(lista)
-def descripcionHechizo(lista):
+def claseHechizo(lista,contador):
+    classes.change_str(lista)
+def descripcionHechizo(lista, contador):
     if lista != None:
-        text.change_str(text + lista)
+        text.change_str(str(text) + lista)
     else:
-        text.change_str(text + "\\n ")
-def dadoHechizo(lista):
+        text.change_str(str(text) + "\\n ")
+def dadoHechizo(lista, contador):    
     print(text)
+    print(roll)
+    print("roll ", contador.string() ,": ", lista)
+    opcion = int(input("1 - attackroll, 2 - damage1, 3 - damage2, 4 - damage3, 5 - damage4, 6 - slotdamage: "))
+    if opcion == 1:
+        attackroll.change_str(lista)
+    if opcion == 2:
+        damage1.change_str(lista)
+    if opcion == 3:
+        damage2.change_str(lista)
+    if opcion == 4:
+        damage3.change_str(lista)
+    if opcion == 5:
+        damage4.change_str(lista)
+    if opcion == 6:
+        slotdamage.change_str(lista)
+    l.change_str(l.my_int() + 1)
 
-
-
+switcher = {'name': nombreHechizo, 'level': nivelHechizo, 'school': escuelaHechizo, 'ritual': ritaulHechizo, 'time': tiempoHechizo, 'range': rangoHechizo, 'components': componentesHechizo, 'duration': duracionHechizo, 'classes': claseHechizo, 'text': descripcionHechizo, 'roll': dadoHechizo}
+Name = my_str("")
+Level = my_str(0)
+school = my_str("")
+ritual = my_str(False)
+time = my_str("")
+Range = my_str("")
+components = my_str("")
+duration = my_str("")
+classes = my_str("")
+text = my_str("")
+attackroll = my_str("")
+damage1 = my_str("")
+damage2 = my_str("")
+damage3 = my_str("")
+damage4 = my_str("")
+slotdamage = my_str("")
+roll = my_str("")
+l = my_str(0)
 
 def main():
     tree = ET.parse('Compendiums\\Spells Compendium 1.3.0.xml')
@@ -96,6 +142,7 @@ def main():
     '''
     i = 0
     j = 0
+    k = 0
     database = []
     spell = []
 
@@ -116,8 +163,17 @@ def main():
         damage3.change_str("")
         damage4.change_str("")
         slotdamage.change_str("")
+        roll.change_str("")
+        l.change_str(0)
+        k = 0        
+        for x in root[i].findall("./roll"):            
+            roll.change_str( str(roll) + "roll 0" + str(k) + ": " + x.text + "\\n")
+            k += 1
+
         for j in range(len(root[i])):
-            switcher[root[i][j].tag](root[i][j].text)
+            #print(root[i][j].tag)
+            switcher[root[i][j].tag](root[i][j].text, l)
+            '''
             if root[i][j].tag == "name":
                 Name = root[i][j].text
             if root[i][j].tag == "text":
@@ -125,14 +181,20 @@ def main():
                     text = text + root[i][j].text
                 else:
                     text = text + "\\n "
+            '''
+            j += 1
             
 
-        spell =[Name,Level,school,ritual,time,Range,components,duration,classes,text,attackroll,damage1,damage2,damage3,damage4,slotdamage]
-        database.append(spell)
+        spell = [Name.string(),Level.my_int(),school.string(),ritual.my_bool(),time.string(),Range.string(),components.string(),duration.string(),classes.string(),text.string(),attackroll.string(),damage1.string(),damage2.string(),damage3.string(),damage4.string(),slotdamage.string()]
+        database.append(list(spell))
+        for ls in database:
+            print(ls)
+        print(len(database))
         spell.clear()
+        i += 1
 
 
-
+'''
 
     cadena = ""
     
@@ -144,6 +206,7 @@ def main():
 
 #        print(x.text)
     print(cadena)
+'''
     
 if __name__ == "__main__":
     main()
